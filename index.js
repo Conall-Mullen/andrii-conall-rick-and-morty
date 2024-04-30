@@ -70,7 +70,7 @@ nextButton.addEventListener("click", () => {
     page++;
     console.log(page);
     cardContainer.innerHTML = "";
-    fetchCharacters(page,searchQuery);
+    fetchCharacters(page, searchQuery);
   }
 });
 
@@ -79,7 +79,7 @@ prevButton.addEventListener("click", () => {
     page--;
     console.log(page);
     cardContainer.innerHTML = "";
-    fetchCharacters(page,searchQuery);
+    fetchCharacters(page, searchQuery);
   }
 
 });
