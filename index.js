@@ -60,7 +60,7 @@ searchBar.addEventListener("submit", (event) => {
 
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
-  fetchCharacters(searchQuery);
+  fetchCharacters(page,searchQuery);
 });
 
 
@@ -70,7 +70,7 @@ nextButton.addEventListener("click", () => {
     page++;
     console.log(page);
     cardContainer.innerHTML = "";
-    fetchCharacters(page);
+    fetchCharacters(page,searchQuery);
   }
 });
 
@@ -79,7 +79,7 @@ prevButton.addEventListener("click", () => {
     page--;
     console.log(page);
     cardContainer.innerHTML = "";
-    fetchCharacters(page);
+    fetchCharacters(page,searchQuery);
   }
 
 });
