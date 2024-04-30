@@ -54,7 +54,7 @@ fetchCharacters(page, searchQuery);
 searchBar.addEventListener("submit", (event) => {
   // console.log(event.target.value);
   event.preventDefault(); // Prevent page refresh
-
+  console.log(page);
   const formData = new FormData(event.target); // Get from form
   const data = Object.fromEntries(formData); // Make data readable
   console.log(page);
