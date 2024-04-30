@@ -22,7 +22,7 @@ let searchQuery = "";
 export async function fetchCharacters(page, name) {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character?page=${page}&name=${name}`
+      `https://rickandmortyapi.com/api/character?page=1&name=${name}`
 
     );
     const data = await response.json();
