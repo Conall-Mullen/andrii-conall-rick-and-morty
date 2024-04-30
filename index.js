@@ -8,27 +8,25 @@ const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
+const searchBarInput = document.querySelector('[class="search-bar__input"]');
 const navigation = document.querySelector('[data-js="navigation"]');
 export const prevButton = document.querySelector('[data-js="button-prev"]');
 export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
-
 // States
-export const maxPage = 42;
-export let page = 1;
+const maxPage = 42;
+let page = 1;
 let searchQuery = "";
 
 export async function fetchCharacters(page, name) {
   try {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character/?page=${page}&name=${name}`
-
     );
     const data = await response.json();
 
     const characters = data.results;
-
 
     characters.forEach((character) => {
       createCharacterCard(
@@ -40,7 +38,6 @@ export async function fetchCharacters(page, name) {
       );
     });
 
-
     pagination.textContent = `${page} / ${maxPage}`;
 
     return characters;
@@ -50,36 +47,36 @@ export async function fetchCharacters(page, name) {
 }
 fetchCharacters(page, searchQuery);
 
-
 searchBar.addEventListener("submit", (event) => {
   // console.log(event.target.value);
   event.preventDefault(); // Prevent page refresh
-  console.log(page);
+
   const formData = new FormData(event.target); // Get from form
   const data = Object.fromEntries(formData); // Make data readable
-  console.log(page);
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
+  page = 1;
+  console.log("Submit: ", page);
   fetchCharacters(page, searchQuery);
+  searchBarInput.value = "";
 });
 
-
-
 nextButton.addEventListener("click", () => {
+  searchQuery = ""; // Clear search bar when clicking through pages
   if (page <= maxPage && page >= 1) {
     page++;
-    console.log(page);
+    console.log("Next: ", page);
     cardContainer.innerHTML = "";
     fetchCharacters(page, searchQuery);
   }
 });
 
 prevButton.addEventListener("click", () => {
+  searchQuery = ""; // Clear search bar when clicking through pages
   if (page <= maxPage && page > 1) {
     page--;
-    console.log(page);
+    console.log("Previous: ", page);
     cardContainer.innerHTML = "";
     fetchCharacters(page, searchQuery);
   }
-
 });
