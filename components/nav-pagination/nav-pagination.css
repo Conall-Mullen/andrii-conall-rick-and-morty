@@ -7,6 +7,10 @@
   bottom: 0;
   background-color: var(--color-primary);
   margin: 2px auto;
+  position: sticky;
+  bottom: 0;
+  left: auto;
+  right: auto;
 }
 
 .navigation__pagination {
