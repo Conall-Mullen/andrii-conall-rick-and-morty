@@ -30,3 +30,12 @@ main {
 .title {
   padding: 10px 0;
 }
+
+/* ======================== RESPONSIVE ====================== */
+
+@media only screen and (min-width: 482px) {
+  main {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+}
