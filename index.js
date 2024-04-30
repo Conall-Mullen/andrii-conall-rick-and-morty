@@ -1,3 +1,4 @@
+// import { loadPartialConfigAsync } from "@babel/core";
 import { createCharacterCard } from "./components/card/card.js";
 
 export const cardContainer = document.querySelector(
@@ -12,19 +13,23 @@ export const prevButton = document.querySelector('[data-js="button-prev"]');
 export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
+
 // States
 export const maxPage = 42;
 export let page = 1;
-const searchQuery = "";
+let searchQuery = "";
 
-export async function fetchCharacters(page) {
+export async function fetchCharacters(page, name) {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character?page=${page}`
+      `https://rickandmortyapi.com/api/character?page=${page}&name=${name}`
+
     );
     const data = await response.json();
-    page = page;
+
     const characters = data.results;
+
+
     characters.forEach((character) => {
       createCharacterCard(
         character.image,
@@ -34,15 +39,31 @@ export async function fetchCharacters(page) {
         character.episode.length
       );
     });
-    console.log(characters);
+
+
     pagination.textContent = `${page} / ${maxPage}`;
+
     return characters;
   } catch (error) {
     return error;
   }
 }
+fetchCharacters(page, searchQuery);
 
-fetchCharacters(page);
+
+searchBar.addEventListener("submit", (event) => {
+  // console.log(event.target.value);
+  event.preventDefault(); // Prevent page refresh
+
+  const formData = new FormData(event.target); // Get from form
+  const data = Object.fromEntries(formData); // Make data readable
+
+  searchQuery = data.query;
+  cardContainer.innerHTML = ""; // Clear card container before search
+  fetchCharacters(searchQuery);
+});
+
+
 
 nextButton.addEventListener("click", () => {
   if (page <= maxPage && page >= 1) {
@@ -60,4 +81,5 @@ prevButton.addEventListener("click", () => {
     cardContainer.innerHTML = "";
     fetchCharacters(page);
   }
+
 });
