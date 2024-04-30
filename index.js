@@ -1,3 +1,4 @@
+// import { loadPartialConfigAsync } from "@babel/core";
 import { createCharacterCard } from "./components/card/card.js";
 
 export const cardContainer = document.querySelector(
@@ -12,44 +13,49 @@ const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
-// States
+// States;
 const maxPage = 1;
 const page = 1;
-const searchQuery = "";
+let searchQuery = "";
 
 // API
-const rickAndMortyApi = "https://rickandmortyapi.com/api/character";
+// const rickAndMortyApi = "https://rickandmortyapi.com/api/character/";
 
-// TODO:
-// assign api to global variable
-// write async function to query the api
-// print response to console
-
-async function fetchCharacters() {
+async function fetchCharacters(name) {
   try {
-    const response = await fetch(rickAndMortyApi);
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/?page=1&name=${name}`
+    );
     const data = await response.json();
     const characters = data.results;
 
-    // characters.forEach((character) => {
-    //   console.log("Characters");
-    // });
+    console.log(characters);
+
+    characters.forEach((character) => {
+      createCharacterCard(
+        character.image,
+        character.name,
+        character.status,
+        character.type,
+        character.episode.length
+      );
+    });
+
     return characters;
   } catch (error) {
     return error;
   }
 }
+fetchCharacters(searchQuery);
 
-const characterInfo = await fetchCharacters();
-console.log(characterInfo);
-characterInfo
-  .filter((character) => character.name !== "Rick Sanchez")
-  .forEach((character) => {
-    createCharacterCard(
-      character.image,
-      character.name,
-      character.status,
-      character.type,
-      character.episode.length
-    );
-  });
+searchBar.addEventListener("submit", (event) => {
+  // console.log(event.target.value);
+  event.preventDefault(); // Prevent page refresh
+
+  const formData = new FormData(event.target); // Get from form
+  const data = Object.fromEntries(formData); // Make data readable
+
+  searchQuery = data.query;
+  cardContainer.innerHTML = ""; // Clear card container before search
+  fetchCharacters(searchQuery);
+});
