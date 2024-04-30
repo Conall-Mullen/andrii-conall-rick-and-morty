@@ -57,7 +57,7 @@ searchBar.addEventListener("submit", (event) => {
 
   const formData = new FormData(event.target); // Get from form
   const data = Object.fromEntries(formData); // Make data readable
-
+  console.log(page);
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
   fetchCharacters(page, searchQuery);
