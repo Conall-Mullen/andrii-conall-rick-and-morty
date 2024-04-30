@@ -60,7 +60,7 @@ searchBar.addEventListener("submit", (event) => {
   console.log(page);
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
-  fetchCharacters("", searchQuery);
+  // fetchCharacters(page, searchQuery);
 });
 
 
