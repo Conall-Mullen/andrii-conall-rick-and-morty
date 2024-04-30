@@ -9,27 +9,26 @@ const searchBarContainer = document.querySelector(
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
+export const prevButton = document.querySelector('[data-js="button-prev"]');
+export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
-// States;
-const maxPage = 1;
-const page = 1;
+
+// States
+export const maxPage = 42;
+export let page = 1;
 let searchQuery = "";
 
-// API
-// const rickAndMortyApi = "https://rickandmortyapi.com/api/character/";
-
-async function fetchCharacters(name) {
+export async function fetchCharacters(page, name) {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character/?page=1&name=${name}`
+      `https://rickandmortyapi.com/api/character?page=${page}&name=${name}`
+
     );
     const data = await response.json();
+
     const characters = data.results;
 
-    console.log(characters);
 
     characters.forEach((character) => {
       createCharacterCard(
@@ -41,12 +40,16 @@ async function fetchCharacters(name) {
       );
     });
 
+
+    pagination.textContent = `${page} / ${maxPage}`;
+
     return characters;
   } catch (error) {
     return error;
   }
 }
-fetchCharacters(searchQuery);
+fetchCharacters(page, searchQuery);
+
 
 searchBar.addEventListener("submit", (event) => {
   // console.log(event.target.value);
@@ -58,4 +61,25 @@ searchBar.addEventListener("submit", (event) => {
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
   fetchCharacters(searchQuery);
+});
+
+
+
+nextButton.addEventListener("click", () => {
+  if (page <= maxPage && page >= 1) {
+    page++;
+    console.log(page);
+    cardContainer.innerHTML = "";
+    fetchCharacters(page);
+  }
+});
+
+prevButton.addEventListener("click", () => {
+  if (page <= maxPage && page > 1) {
+    page--;
+    console.log(page);
+    cardContainer.innerHTML = "";
+    fetchCharacters(page);
+  }
+
 });
