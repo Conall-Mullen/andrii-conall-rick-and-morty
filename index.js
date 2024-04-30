@@ -1,4 +1,3 @@
-// import { loadPartialConfigAsync } from "@babel/core";
 import { createCharacterCard } from "./components/card/card.js";
 
 export const cardContainer = document.querySelector(
@@ -9,28 +8,23 @@ const searchBarContainer = document.querySelector(
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
+export const prevButton = document.querySelector('[data-js="button-prev"]');
+export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
-// States;
-const maxPage = 1;
-const page = 1;
-let searchQuery = "";
+// States
+export const maxPage = 42;
+export let page = 1;
+const searchQuery = "";
 
-// API
-// const rickAndMortyApi = "https://rickandmortyapi.com/api/character/";
-
-async function fetchCharacters(name) {
+export async function fetchCharacters(page) {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character/?page=1&name=${name}`
+      `https://rickandmortyapi.com/api/character?page=${page}`
     );
     const data = await response.json();
+    page = page;
     const characters = data.results;
-
-    console.log(characters);
-
     characters.forEach((character) => {
       createCharacterCard(
         character.image,
@@ -40,22 +34,30 @@ async function fetchCharacters(name) {
         character.episode.length
       );
     });
-
+    console.log(characters);
+    pagination.textContent = `${page} / ${maxPage}`;
     return characters;
   } catch (error) {
     return error;
   }
 }
-fetchCharacters(searchQuery);
 
-searchBar.addEventListener("submit", (event) => {
-  // console.log(event.target.value);
-  event.preventDefault(); // Prevent page refresh
+fetchCharacters(page);
 
-  const formData = new FormData(event.target); // Get from form
-  const data = Object.fromEntries(formData); // Make data readable
+nextButton.addEventListener("click", () => {
+  if (page <= maxPage && page >= 1) {
+    page++;
+    console.log(page);
+    cardContainer.innerHTML = "";
+    fetchCharacters(page);
+  }
+});
 
-  searchQuery = data.query;
-  cardContainer.innerHTML = ""; // Clear card container before search
-  fetchCharacters(searchQuery);
+prevButton.addEventListener("click", () => {
+  if (page <= maxPage && page > 1) {
+    page--;
+    console.log(page);
+    cardContainer.innerHTML = "";
+    fetchCharacters(page);
+  }
 });
