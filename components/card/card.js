@@ -3,7 +3,7 @@ import { cardContainer } from "../../index.js";
 export function createCharacterCard(url, character, status, type, episodes) {
   const newCard = document.createElement("li");
   newCard.classList.add("card");
-  newCard.innerHTML = `
+  newCard.innerHTML += `
   <div class="card__image-container">
     <img
       class="card__image"
