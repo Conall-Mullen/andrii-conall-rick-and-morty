@@ -18,7 +18,6 @@
 body {
   font-family: var(--font-family);
   color: var(--color-primary);
-  padding: 20px;
 }
 
 main {
@@ -30,7 +29,10 @@ main {
 }
 
 .title {
-  padding: 10px 0;
+  padding: 40px 0;
+  text-align: center;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 /* ======================== RESPONSIVE ====================== */
