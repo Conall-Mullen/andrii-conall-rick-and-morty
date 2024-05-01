@@ -35,6 +35,23 @@ main {
   color: var(--color-secondary);
 }
 
+/* ------ Imported fornts -------- */
+/* .jersey-25-regular {
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 100 to 700
+
+.josefin-slab-<uniquifier> {
+  font-family: "Josefin Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+} */
+
 /* ======================== RESPONSIVE ====================== */
 
 @media only screen and (min-width: 482px) {
