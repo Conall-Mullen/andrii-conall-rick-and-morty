@@ -12,6 +12,9 @@
 :root {
   --color-primary: rgb(51, 51, 51);
   --color-secondary: #f6f6f6;
+  --color-accent: #f4743b;
+  --color-separator: #6e8898;
+  --colot-accent2: #c62e65;
   --font-family: system-ui;
 }
 /* ------ Imported fornts -------- */
