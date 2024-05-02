@@ -12,6 +12,8 @@ const navigation = document.querySelector('[data-js="navigation"]');
 export const prevButton = document.querySelector('[data-js="button-prev"]');
 export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
+const body = document.querySelector('[data-js="body-container"]');
+const overlay = document.querySelector('[data-js="darkmode-page-switch"]');
 
 // States
 export const maxPage = 42;
@@ -62,8 +64,10 @@ nextButton.addEventListener("click", () => {
   if (page <= maxPage && page >= 1) {
     page++;
     console.log(page);
-    cardContainer.innerHTML = "";
-    fetchCharacters(page, searchQuery);
+    darkAndBlurOnPageChange(() => {
+      cardContainer.innerHTML = "";
+      fetchCharacters(page, searchQuery);
+    });
   }
 });
 
@@ -71,7 +75,21 @@ prevButton.addEventListener("click", () => {
   if (page <= maxPage && page > 1) {
     page--;
     console.log(page);
-    cardContainer.innerHTML = "";
-    fetchCharacters(page, searchQuery);
+    darkAndBlurOnPageChange(() => {
+      cardContainer.innerHTML = "";
+      fetchCharacters(page, searchQuery);
+    });
   }
 });
+
+function darkAndBlurOnPageChange(callback) {
+  body.classList.add("page-change");
+  overlay.style.display = "block";
+  setTimeout(() => {
+    body.classList.remove("page-change");
+    overlay.style.display = "none";
+    if (callback && typeof callback === "function") {
+      callback();
+    }
+  }, 200);
+}
