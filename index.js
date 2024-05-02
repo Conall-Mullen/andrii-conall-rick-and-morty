@@ -23,16 +23,22 @@ export async function fetchCharacters(page, name) {
   try {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character/?page=${page}&name=${name}`
+
     );
     console.log(
       `https://rickandmortyapi.com/api/character/?page=${page}&name=${name}`
+
+
     );
     const data = await response.json();
 
     const characters = data.results;
+
     const characterInfo = data.info;
     console.log(characterInfo.pages);
     maxPage = characterInfo.pages;
+
+
 
     characters.forEach((character) => {
       createCharacterCard(
@@ -54,11 +60,12 @@ export async function fetchCharacters(page, name) {
 fetchCharacters(page, searchQuery);
 
 searchBar.addEventListener("submit", (event) => {
-  // console.log(event.target.value);
+
   event.preventDefault(); // Prevent page refresh
   page = 1;
   const formData = new FormData(event.target); // Get from form
   const data = Object.fromEntries(formData); // Make data readable
+
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
   console.log("Submit: ", page);

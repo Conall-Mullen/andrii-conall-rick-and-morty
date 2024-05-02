@@ -1,15 +1,17 @@
 .navigation {
   height: 30px;
-  width: 300px;
+  width: 100%;
   display: grid;
   grid-template-columns: 100px 100px 100px;
-  position: sticky;
+  justify-content: center;
+  /* background-color: var(--color-secondary); */
+  position: fixed;
   bottom: 0;
-  background-color: var(--color-primary);
 }
 
 .navigation__pagination {
   display: grid;
   place-items: center;
-  color: var(--color-secondary);
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
 }
