@@ -14,6 +14,11 @@
   background-color: transparent;
   border: none;
   color: var(--color-primary);
+  font-family: "Josefin Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 18px;
+  font-style: normal;
 }
 
 .search-bar__button {
