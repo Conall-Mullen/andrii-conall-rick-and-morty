@@ -15,7 +15,7 @@ export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-const maxPage = 42;
+let maxPage = 42;
 let page = 1;
 let searchQuery = "";
 
@@ -24,9 +24,15 @@ export async function fetchCharacters(page, name) {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character/?page=${page}&name=${name}`
     );
+    console.log(
+      `https://rickandmortyapi.com/api/character/?page=${page}&name=${name}`
+    );
     const data = await response.json();
 
     const characters = data.results;
+    const characterInfo = data.info;
+    console.log(characterInfo.pages);
+    maxPage = characterInfo.pages;
 
     characters.forEach((character) => {
       createCharacterCard(
@@ -50,20 +56,17 @@ fetchCharacters(page, searchQuery);
 searchBar.addEventListener("submit", (event) => {
   // console.log(event.target.value);
   event.preventDefault(); // Prevent page refresh
-
+  page = 1;
   const formData = new FormData(event.target); // Get from form
   const data = Object.fromEntries(formData); // Make data readable
   searchQuery = data.query;
   cardContainer.innerHTML = ""; // Clear card container before search
-  page = 1;
   console.log("Submit: ", page);
   fetchCharacters(page, searchQuery);
-  searchBarInput.value = "";
 });
 
 nextButton.addEventListener("click", () => {
-  searchQuery = ""; // Clear search bar when clicking through pages
-  if (page <= maxPage && page >= 1) {
+  if (page < maxPage && page >= 1) {
     page++;
     console.log("Next: ", page);
     cardContainer.innerHTML = "";
@@ -72,7 +75,6 @@ nextButton.addEventListener("click", () => {
 });
 
 prevButton.addEventListener("click", () => {
-  searchQuery = ""; // Clear search bar when clicking through pages
   if (page <= maxPage && page > 1) {
     page--;
     console.log("Previous: ", page);
