@@ -1,7 +1,20 @@
 .button {
   border: none;
+  background-color: var(--color-primary);
+  color: whitesmoke;
+  transition: 0.2s ease-in-out;
 }
 
 .button:hover {
   background-color: var(--color-secondary);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  text-shadow: 1px 1px 2px var(--color-separator);
+  font-size: 14px;
+}
+
+.footer-container {
+  height: 90px;
+  width: 100%;
+  background-color: var(--color-primary);
 }

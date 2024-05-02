@@ -12,21 +12,65 @@
 :root {
   --color-primary: rgb(51, 51, 51);
   --color-secondary: #f6f6f6;
+  --color-accent: #f4743b;
+  --color-separator: #6e8898;
+  --colot-accent2: #c62e65;
   --font-family: system-ui;
 }
+/* ------ Imported fornts -------- */
+/* .jersey-25-regular {
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 100 to 700
+
+.josefin-slab-<uniquifier> {
+  font-family: "Josefin Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+} */
 
 body {
-  font-family: var(--font-family);
+  font-family: "Josefin Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 21px;
+  font-style: normal;
   color: var(--color-primary);
-  padding: 20px;
 }
 
 main {
   display: flex;
   flex-direction: column;
+  width: 95%;
   gap: 10px;
+  margin: 30px auto;
 }
 
 .title {
-  padding: 10px 0;
+  padding: 40px 0;
+  text-align: center;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+.title,
+.card__title {
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ======================== RESPONSIVE ====================== */
+
+@media only screen and (min-width: 482px) {
+  .card-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
 }
